@@ -17,6 +17,10 @@ func main() {
 	defer f.Close()
 
 	csvReader := csv.NewReader(f)
+
+	total := 0
+	correct := 0
+
 	for {
 		rec, err := csvReader.Read()
 		if err == io.EOF {
@@ -25,9 +29,15 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+		total++
 
-		fmt.Printf("%+v\n", rec)
+		fmt.Printf("Problem #%d: %s = \n", total, rec[0])
+		var answer string
+		fmt.Scanf("%s\n", &answer)
+		if answer == rec[1] {
+			correct++
+		}
 
 	}
-
+	fmt.Printf("You scored %d out of %d.\n", correct, total)
 }
